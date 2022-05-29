@@ -28,15 +28,29 @@ public class TestClass {
     @Test
     public void checkDressDescription()
     {
-        System.out.println("hello, world");
         mainPage.moveCursorToDressesTab();
         mainPage.clickOnEveningDressesTab();
         eveningDressesPage.moveCursorToPrintedDressProduct();
         eveningDressesPage.clickMoreButton();
 
         Assert.assertEquals(printedDressPage.expectedDressCompositions, printedDressPage.getActualDressCompositions());
-        Assert.assertEquals(printedDressPage.getActualDressStyles(), printedDressPage.getActualDressStyles());
-        Assert.assertEquals(printedDressPage.getActualDressProperties(), printedDressPage.getActualDressProperties());
+        Assert.assertEquals(printedDressPage.expectedDressStyles, printedDressPage.getActualDressStyles());
+        Assert.assertEquals(printedDressPage.expectedDressProperties, printedDressPage.getActualDressProperties());
+    }
+
+    @Test
+    public void addDressToCart()
+    {
+        mainPage.moveCursorToDressesTab();
+        mainPage.clickOnEveningDressesTab();
+        eveningDressesPage.moveCursorToPrintedDressProduct();
+        eveningDressesPage.clickMoreButton();
+        printedDressPage.chooseSize();
+        printedDressPage.choosePinkColor();
+        printedDressPage.clickAddToCart();
+        printedDressPage.clickContinueShopping();
+
+        Assert.assertEquals(printedDressPage.expectedCartText, printedDressPage.getActualCartText());
     }
 
     @After

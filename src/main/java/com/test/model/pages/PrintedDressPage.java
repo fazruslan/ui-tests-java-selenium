@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 public class PrintedDressPage extends PageFactory {
 
@@ -17,6 +18,9 @@ public class PrintedDressPage extends PageFactory {
     public String expectedDressCompositions = "Viscose";
     public String expectedDressStyles = "Dressy";
     public String expectedDressProperties = "Short Dress";
+    public String dressSize = "M";
+    public String expectedCartText = "1 Product";
+
     @FindBy(xpath = "//table[@class='table-data-sheet']//tr[1]/td[2]")
     private WebElement actualDressCompositions;
 
@@ -26,10 +30,34 @@ public class PrintedDressPage extends PageFactory {
     @FindBy(xpath = "//table[@class='table-data-sheet']//tr[3]/td[2]")
     private WebElement actualDressProperties;
 
-    public String getActualDressCompositions(){ return actualDressCompositions.getText(); }
+    @FindBy(id = "group_1")
+    private WebElement sizeSelection;
 
+    @FindBy(id = "color_24")
+    private WebElement pinkColor;
+
+    @FindBy(xpath = "//div[@class='box-cart-bottom']//button")
+    private WebElement addToCart;
+
+    @FindBy(xpath = "//div[@class='button-container']//span[1]")
+    private WebElement continueShoppingBtn;
+
+    @FindBy(xpath = "//div[@class='shopping_cart']//span[1]")
+    private WebElement numberOfProductsInCartText;
+
+    @FindBy(xpath = "//div[@class='shopping_cart']//span[2]")
+    private WebElement cartText;
+
+
+    public String getActualDressCompositions() { return actualDressCompositions.getText(); }
     public String getActualDressStyles() { return actualDressStyles.getText(); }
-
     public String getActualDressProperties() { return actualDressProperties.getText(); }
-
+    public void chooseSize() {
+        Select sizeSelect = new Select(sizeSelection);
+        sizeSelect.selectByVisibleText(dressSize);
+    }
+    public void choosePinkColor() { pinkColor.click(); }
+    public void clickAddToCart() { addToCart.click(); }
+    public void clickContinueShopping() { continueShoppingBtn.click(); }
+    public String getActualCartText() { return numberOfProductsInCartText.getText() + " " + cartText.getText(); }
 }
