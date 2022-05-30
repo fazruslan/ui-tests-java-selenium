@@ -2,6 +2,7 @@ package com.test.model.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
@@ -46,8 +47,13 @@ public class PrintedDressPage extends PageFactory {
     private WebElement numberOfProductsInCartText;
 
     @FindBy(xpath = "//div[@class='shopping_cart']//span[2]")
-    private WebElement cartText;
+    private WebElement cartTextAfterNumber;
 
+    @FindBy(xpath = "//div[@class='shopping_cart']/a")
+    private WebElement shoppingCart;
+
+    @FindBy(id = "button_order_cart")
+    private WebElement checkOutBtn;
 
     public String getActualDressCompositions() { return actualDressCompositions.getText(); }
     public String getActualDressStyles() { return actualDressStyles.getText(); }
@@ -59,5 +65,10 @@ public class PrintedDressPage extends PageFactory {
     public void choosePinkColor() { pinkColor.click(); }
     public void clickAddToCart() { addToCart.click(); }
     public void clickContinueShopping() { continueShoppingBtn.click(); }
-    public String getActualCartText() { return numberOfProductsInCartText.getText() + " " + cartText.getText(); }
+    public String getCartTextAfterNumber() { return numberOfProductsInCartText.getText() + " " + cartTextAfterNumber.getText(); }
+    public void moveCursorToShoppingCart() {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(shoppingCart).perform();
+    }
+    public void clickCheckOutBtn() { checkOutBtn.click(); }
 }

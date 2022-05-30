@@ -1,3 +1,4 @@
+import com.test.model.pages.CartPage;
 import com.test.model.pages.EveningDressesPage;
 import com.test.model.pages.MainPage;
 import com.test.model.pages.PrintedDressPage;
@@ -7,6 +8,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,6 +19,7 @@ public class TestClass {
     MainPage mainPage = new MainPage(driver);
     EveningDressesPage eveningDressesPage = new EveningDressesPage(driver);
     PrintedDressPage printedDressPage = new PrintedDressPage(driver);
+    CartPage cartPage = new CartPage(driver);
 
 
     @Before
@@ -50,7 +54,30 @@ public class TestClass {
         printedDressPage.clickAddToCart();
         printedDressPage.clickContinueShopping();
 
-        Assert.assertEquals(printedDressPage.expectedCartText, printedDressPage.getActualCartText());
+        Assert.assertEquals(printedDressPage.expectedCartText, printedDressPage.getCartTextAfterNumber());
+    }
+
+    @Test
+    public void clearCart()
+    {
+        mainPage.moveCursorToDressesTab();
+        mainPage.clickOnEveningDressesTab();
+        eveningDressesPage.moveCursorToPrintedDressProduct();
+        eveningDressesPage.clickMoreButton();
+        printedDressPage.chooseSize();
+        printedDressPage.choosePinkColor();
+        printedDressPage.clickAddToCart();
+        printedDressPage.clickContinueShopping();
+        printedDressPage.moveCursorToShoppingCart();
+        printedDressPage.clickCheckOutBtn();
+        cartPage.clickDeleteDress();
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOf(cartPage.getElementOfMessage()));
+
+        Assert.assertTrue(cartPage.checkInfoMessageDisplayed());
+        Assert.assertEquals(cartPage.expectedTextInMessage, cartPage.getInfoMessageText());
+        Assert.assertEquals(cartPage.expectedCartText, cartPage.getCartText());
     }
 
     @After

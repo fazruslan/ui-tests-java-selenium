@@ -27,5 +27,4 @@ public class EveningDressesPage extends PageFactory{
     }
 
     public void clickMoreButton() { moreAboutProductButton.click(); }
-
 }
