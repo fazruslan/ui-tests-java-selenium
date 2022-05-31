@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class TestClass {
@@ -25,9 +26,9 @@ public class TestClass {
 
     @Before
     public void setUp(){
-    driver.get(pageUrl);
-    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    driver.manage().window().maximize();
+        driver.get(pageUrl);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        driver.manage().window().maximize();
     }
 
     @Test
@@ -73,7 +74,7 @@ public class TestClass {
         printedDressPage.clickCheckOutBtn();
         cartPage.clickDeleteDress();
 
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(cartPage.getElementOfMessage()));
 
         Assert.assertTrue(cartPage.checkInfoMessageDisplayed());
