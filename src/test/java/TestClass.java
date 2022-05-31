@@ -20,11 +20,12 @@ public class TestClass {
     EveningDressesPage eveningDressesPage = new EveningDressesPage(driver);
     PrintedDressPage printedDressPage = new PrintedDressPage(driver);
     CartPage cartPage = new CartPage(driver);
+    String pageUrl = "http://automationpractice.com";
 
 
     @Before
     public void setUp(){
-    driver.get("http://automationpractice.com");
+    driver.get(pageUrl);
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.manage().window().maximize();
     }

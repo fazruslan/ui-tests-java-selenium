@@ -17,7 +17,6 @@ public class CartPage extends PageFactory{
     public String expectedTextInMessage = "Your shopping cart is empty.";
     public String expectedCartText = "(empty)";
 
-
     @FindBy(id = "4_44_0_0")
     private WebElement deleteDressBtn;
 

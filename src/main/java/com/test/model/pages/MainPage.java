@@ -1,6 +1,5 @@
 package com.test.model.pages;
 
-import com.test.utils.Webdriver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
